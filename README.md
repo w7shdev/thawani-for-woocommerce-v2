@@ -18,9 +18,7 @@
 </p>
 <br />
 
-> <br>
->
-> **⚠ NOTE**
+## **⚠ NOTE**
 >
 > This is not a stable version of the plugin if you wish to use the stable on I prefer that you go and download from the original
 > Repository [Thawani-For-WooCommerce](https://github.com/PhazeRoOman/thawani-for-woocommerce)
@@ -28,6 +26,13 @@
 > please note reporting issues is only valid once the plugin is on development.
 >   <br> <br>
 > <br>
+
+### Road map 
+
+TBA
+
+
+---
 
 > **⚠ INFORMATION & REQUIREMENTS**
 >
