@@ -10,7 +10,7 @@
     Enables Credit/Debit card payments through Thawani on your WooCommerce shop.
     <br />
     <br />
-    <a href="https://github.com/PhazeRoOman/thawani-for-woocommerce/issues">Report a bug</a>
+    <a href="https://github.com/w7shdev/thawani-for-woocommerce-v2/issues">Report a bug</a>
   </p>
 </p>
   <p align="center">
@@ -20,6 +20,15 @@
 
 > <br>
 >
+> **⚠ NOTE**
+>
+> This is not a stable version of the plugin if you wish to use the stable on I prefer that you go and download from the original
+> Repository [Thawani-For-WooCommerce](https://github.com/PhazeRoOman/thawani-for-woocommerce)
+>
+> please note reporting issues is only valid once the plugin is on development.
+>   <br> <br>
+> <br>
+
 > **⚠ INFORMATION & REQUIREMENTS**
 >
 > - Thawani For WooCommerce is currently only available in Oman.
