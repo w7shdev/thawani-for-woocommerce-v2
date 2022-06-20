@@ -1,10 +1,10 @@
 <br />
 <p align="center">
-  <a href="link to the projects website">
+  <a href="https://github.com/w7shdev/thawani-for-woocommerce-v2">
     <img src="./asset/thawani.svg" alt="Logo" width="150" style="background-color: white">
   </a>
 
-  <h1 align="center">Thawani For WooCommerce</h1>
+  <h1 align="center">Thawani For WooCommerce V2</h1>
 
   <p align="center">
     Enables Credit/Debit card payments through Thawani on your WooCommerce shop.
