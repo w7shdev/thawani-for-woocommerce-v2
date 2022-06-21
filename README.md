@@ -29,6 +29,7 @@
 
 ### Road map 
 
+**High level of what are we expecting in the future release**
 
 | # | Feature / Fix     |  status |
 | ---|-------------------|---------|
