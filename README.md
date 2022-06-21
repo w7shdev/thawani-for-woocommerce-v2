@@ -29,8 +29,11 @@
 
 ### Road map 
 
-TBA
 
+| # | Feature / Fix     |  status |
+| ---|-------------------|---------|
+| 1 | Migrate to vue 3  | pending |
+| 2 | Allow payment intent | pending |
 
 ---
 
