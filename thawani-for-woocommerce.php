@@ -76,6 +76,6 @@ function thawani_gw_enqueue_script($hook)
     if ('post.php' != $hook) {
         return;
     }
-    wp_enqueue_script('my_custom_script', plugin_dir_url(__FILE__) . '/dist/thawani-generate.js', array('jquery'), '1.0');
+    wp_enqueue_script('thawani_for_woocommerce', plugin_dir_url(__FILE__) . '/dist/thawani-generate.js', array('jquery'), '1.0');
 }
 add_action('admin_enqueue_scripts', 'thawani_gw_enqueue_script');
