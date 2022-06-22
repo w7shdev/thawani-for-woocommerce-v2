@@ -4,7 +4,9 @@
   "description": "<br /> <p align=\"center\">   <a href=\"https://github.com/w7shdev/thawani-for-woocommerce-v2\">     <img src=\"./asset/thawani.svg\" alt=\"Logo\" width=\"150\" style=\"background-color: white\">   </a>",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev" :"mix watch",
+    "hot" :"mix watch --hot",
+    "prod": "mix --production"
   },
   "repository": {
     "type": "git",
