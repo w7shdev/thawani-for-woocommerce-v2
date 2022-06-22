@@ -79,3 +79,22 @@ function thawani_gw_enqueue_script($hook)
     wp_enqueue_script('thawani_for_woocommerce', plugin_dir_url(__FILE__) . '/dist/thawani-generate.js', array('jquery'), '1.0');
 }
 add_action('admin_enqueue_scripts', 'thawani_gw_enqueue_script');
+
+/**
+ * Enqueue a script in the WordPress admin on post.php.
+ *
+ * @param int $hook Hook suffix for the current admin page.
+ *
+ * @since 2.0.0
+ */
+function thawani_for_woocommerce_styles($hook)
+{
+    $findString  = strpos($hook , 'thawani_gw');
+
+    if($findString === false)
+        return;
+
+    wp_enqueue_style('thawani_for_woocommerce_tailwind', plugin_dir_url(__FILE__). '/dist/style.css');
+}
+
+add_action('admin_enqueue_scripts', 'thawani_for_woocommerce_styles');
