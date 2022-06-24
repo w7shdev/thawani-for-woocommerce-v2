@@ -1,15 +1,8 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ["./**/*.vue"],
-  darkMode: false, // or 'media' or 'class'
+  content: ["./js/**/*.vue"],
   theme: {
-    extend: {
-      colors: {
-        thawani: "#6fbf49",
-      },
-    },
-  },
-  variants: {
     extend: {},
   },
-  plugins: [require("tailwindcss"), require("autoprefixer")],
-};
+  plugins: [],
+}

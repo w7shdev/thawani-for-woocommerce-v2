@@ -29,8 +29,12 @@
 
 ### Road map 
 
-TBA
+**High level of what are we expecting in the future releases**
 
+| # | Feature / Fix     |  status |
+| ---|-------------------|---------|
+| 1 | Migrate to vue 3  | pending |
+| 2 | Allow payment intent | pending |
 
 ---
 
