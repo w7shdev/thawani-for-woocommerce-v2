@@ -1,9 +1,10 @@
 <template>
-    <h1 class="text-blue-400">
-     {{ heading }}
-    </h1>
+    <div>
+        <Heading  title="Welcome to vue" />
+        <p></p>
+    </div>
 </template>
 
 <script setup>
-let heading  = "Thawani session history page"
+import Heading from "../common/Heading.vue"
 </script>
