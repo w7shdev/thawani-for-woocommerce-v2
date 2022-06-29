@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Heading  title="Welcome to vue" />
-        <p></p>
+        <Heading class="text-2xl text-green-600 mb-1" title="Thawani History sessions" />
+        <p class="my-1">Listing your last payment history sessions. The order is from the latests to the oldest.</p>
     </div>
 </template>
 
