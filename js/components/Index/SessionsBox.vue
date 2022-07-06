@@ -20,7 +20,7 @@
                 <button @click="togglePopup" type="button" class="border-none cursor-pointer bg-slate-50 hover:bg-gray-100 p-2 rounded">
                     <Menu />
                 </button>
-                <div class="absolute p-2 bg-slate-50 rounded shadow min-w-[200px] right-0 top-8 z-10" :class="{block : state.popup, hidden: !state.popup}">
+                <div v-if="state.popup"  v-click-outside="closePoupUp" class="absolute p-2 bg-slate-50 rounded shadow min-w-[200px] right-0 top-8 z-10">
                    <div class="flex-1">
                        <div class="flex space-x-2 items-center p-2 rounded cursor-pointer hover:bg-slate-100">
                          <div>
@@ -53,4 +53,9 @@
     const togglePopup = () => {
         state.popup = !state.popup
     }
+
+    function closePoupUp(){
+        state.popup = false;
+    }
+
 </script>
