@@ -4,8 +4,8 @@
   "description": "<br /> <p align=\"center\">   <a href=\"https://github.com/w7shdev/thawani-for-woocommerce-v2\">     <img src=\"./asset/thawani.svg\" alt=\"Logo\" width=\"150\" style=\"background-color: white\">   </a>",
   "main": "index.js",
   "scripts": {
-    "dev" :"mix watch",
-    "hot" :"mix watch --hot",
+    "dev": "mix watch",
+    "hot": "mix watch --hot",
     "prod": "mix --production"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "vue-loader": "^16.8.3"
   },
   "dependencies": {
+    "pinia": "^2.0.14",
     "vue": "^3.2.37"
   }
 }
