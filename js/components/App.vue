@@ -27,7 +27,7 @@
          </div>
        </div>
        <div class="flex justify-end mt-2">
-         <button type="button" class="px-4 p-2 bg-green-500 text-white min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-600 hover:text-white cursor-pointer">UPDATE</button> 
+         <button type="button" class="px-4 p-2 bg-green-500 text-white min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-600 hover:text-white cursor-pointer">Update</button> 
        </div>                         
     </div>
   </div>
