@@ -5,7 +5,7 @@
   <div class="flex-grow">
         <Heading class="text-2xl text-green-600 mb-1 mt-6" title="Thawani History sessions" />
         <p class="my-1">Listing your last payment history sessions. The order is from the latests to the oldest.</p>
-        <p class="mt-1 text-gray-500"> total results : {{ state.results }} </p>
+        <p class="mt-1 text-gray-500"> Total Results : {{ state.results }} </p>
   </div>
   <div class="relative">
     <button @click="filterPopupToggle()" class="bg-gray-200 rounded hover:bg-slate-50 shadow cursor-pointer text-gray-500 p-2 px-4 border-none  inline-block">
