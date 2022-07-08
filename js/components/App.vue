@@ -39,9 +39,6 @@
 
         <!-- session box --> 
         <SessionBox />
-        <SessionBox />
-        <SessionBox />
-        <SessionBox />
         
         <div class="mt-4">
             <div class="flex space-x-2 justify-end">
