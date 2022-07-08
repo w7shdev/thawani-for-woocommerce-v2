@@ -2,7 +2,7 @@
     <div class="p-4 py-6 bg-slate-50 rounded-md shadow mb-3">
            <div class="flex justify-between items-center">
             <div>
-                <span class="font-bold text-2xl text-gray-900 block">#89</span>
+                <span class="font-bold text-2xl text-gray-900 block">#{{ prop.session.client_reference_id }}</span>
                 <span class="text-gray-500 block">Yesterday , 1am </span>
             </div>
             <div>
@@ -49,6 +49,9 @@
     import {reactive} from "vue";
 
     const state  = reactive({popup: false});
+
+    const prop = defineProps(["session"]);
+
 
     const togglePopup = () => {
         state.popup = !state.popup
