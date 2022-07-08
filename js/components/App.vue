@@ -5,6 +5,7 @@
   <div class="flex-grow">
         <Heading class="text-2xl text-green-600 mb-1 mt-6" title="Thawani History sessions" />
         <p class="my-1">Listing your last payment history sessions. The order is from the latests to the oldest.</p>
+        <p class="mt-1 text-gray-500"> total results : {{ state.results }} </p>
   </div>
   <div class="relative">
     <button @click="filterPopupToggle()" class="bg-gray-200 rounded hover:bg-slate-50 shadow cursor-pointer text-gray-500 p-2 px-4 border-none  inline-block">
@@ -55,9 +56,33 @@
 import Heading from "../common/Heading.vue"
 import SessionBox from "./Index/SessionsBox.vue"
 import Filter from "../icons/Filter.vue"
-import {reactive} from "vue";
+import { request } from  "../service/fetch.js"
+import {reactive , onMounted } from "vue";
 
-const state  = reactive({ filterPopup : false })
+const state  = reactive({ 
+    filterPopup : false,
+    results : 0,
+    sessionList : [],
+    isSessionAvailable : false
+})
+
+onMounted( async () => {
+
+    const response  = await request({
+            skip : 1,
+            limit: 20
+        }, "get_all_sessions");
+
+   const parsedResponse = JSON.parse(response);
+   state.results = parsedResponse.data.length;
+
+   if(state.results > 0) {
+           state.isSessionAvailable = true; 
+    }
+    state.sessionList = parsedResponse.data;
+})
+
+
 
 function filterPopupToggle(){
     state.filterPopup = !state.filterPopup
