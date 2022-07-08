@@ -38,7 +38,12 @@
         <!-- divider -->
 
         <!-- session box --> 
-        <SessionBox />
+        <div v-if="state.sessionList.length < 1 ">
+          No result   
+        </div>
+        <div v-else> 
+            <SessionBox :session="state.sessionList" />
+        </div>
         
         <div class="mt-4">
             <div class="flex space-x-2 justify-end">
