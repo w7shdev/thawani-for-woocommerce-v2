@@ -7,11 +7,11 @@
         <p class="my-1">Listing your last payment history sessions. The order is from the latests to the oldest.</p>
   </div>
   <div class="relative">
-    <button class="bg-gray-200 rounded hover:bg-slate-50 shadow cursor-pointer text-gray-500 p-2 px-4 border-none  inline-block">
+    <button @click="filterPopupToggle()" class="bg-gray-200 rounded hover:bg-slate-50 shadow cursor-pointer text-gray-500 p-2 px-4 border-none  inline-block">
          <span class="flex items-center"><Filter class="mr-2 h-4 w-4" /> Filter</span>
     </button>
 
-    <div class="absolute top-8 right-0 min-w-[200px] rounded shadow bg-slate-50 text-gray-500 py-2 px-4 z-10">
+    <div v-if="state.filterPopup" v-click-outside="filterPopupToggle" class="absolute top-8 right-0 min-w-[200px] rounded shadow bg-slate-50 text-gray-500 py-2 px-4 z-10">
        <div class="flex justify-between items-center">
          <div>
             Per page
@@ -55,4 +55,11 @@
 import Heading from "../common/Heading.vue"
 import SessionBox from "./Index/SessionsBox.vue"
 import Filter from "../icons/Filter.vue"
+import {reactive} from "vue";
+
+const state  = reactive({ filterPopup : false })
+
+function filterPopupToggle(){
+    state.filterPopup = !state.filterPopup
+}
 </script>
