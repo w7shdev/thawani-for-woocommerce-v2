@@ -42,7 +42,7 @@
           No result   
         </div>
         <div v-else> 
-            <SessionBox :session="state.sessionList" />
+            <SessionBox v-for="session in state.sessionList" :session="session" :key="session.session_id"/>
         </div>
         
         <div class="mt-4">
