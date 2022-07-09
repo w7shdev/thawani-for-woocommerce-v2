@@ -43,7 +43,7 @@
                          <div>
                            <Cash />
                          </div>
-                         <div>View all details</div>
+                         <div>Refund</div>
                        </div>
                    </div>
                 </div>
