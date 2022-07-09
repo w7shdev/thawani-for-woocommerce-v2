@@ -11,7 +11,7 @@
                     #{{ prop.session.client_reference_id }} <ExternalLink class="w-4 h-4" />
                 </a>
                 </span>
-                <span class="text-gray-500 block"> {{ prop.session.created_at}}</span>
+                <span class="text-gray-500 block"> {{ timeFromNow(prop.session.created_at) }}</span>
             </div>
             <div>
                 <span class="font-bold text-2xl text-gray-900 block">90.000</span>
@@ -58,6 +58,7 @@
     import Cash from "../../icons/Cash.vue"
     import ExternalLink from "../../icons/ExternalLink.vue"
     import {reactive} from "vue";
+    import  { timeFromNow } from "../../modules/datejs"
 
     const state  = reactive({popup: false});
 
