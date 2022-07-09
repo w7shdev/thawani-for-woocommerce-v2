@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto lg:w-2/4">
+    <div class="container mx-auto lg:w-[750px]">
 
 <div class="flex items-center">
   <div class="flex-grow">
