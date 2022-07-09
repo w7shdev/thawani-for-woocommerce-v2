@@ -3,18 +3,18 @@
            <div class="flex justify-between items-center">
             <div>
                 <span class="font-bold text-2xl text-gray-900 block">#{{ prop.session.client_reference_id }}</span>
-                <span class="text-gray-500 block">Yesterday , 1am </span>
+                <span class="text-gray-500 block"> {{ prop.session.created_at}}</span>
             </div>
             <div>
                 <span class="font-bold text-2xl text-gray-900 block">90.000</span>
-                <span class="text-gray-500 block">OMR</span>
+                <span class="text-gray-500 block text-center">OMR</span>
             </div>
             <div>
-                <span class="font-bold text-2xl text-gray-900 block">Ali Al hinai</span>
-                <span class="text-gray-900 block">+968 9422 2244</span>
+                <span class="font-bold text-2xl text-gray-900 block"> {{ prop.session.metadata.customer_name}}</span>
+                <span class="text-gray-900 block text-center"> {{ prop.session.metadata.phone}}</span>
             </div>
             <div>
-                <button type="button" class="text-green-500 p-1 border-2 border-solid bg-stone-50 outline-none border-green-500 px-8 text-center inline-block rounded-full">Paid</button>
+                <button type="button" class="text-green-500 p-1 border-2 border-solid bg-stone-50 outline-none border-green-500 px-8 text-center inline-block rounded-full"> {{ prop.session.payment_status }}</button>
             </div>
             <div class="relative">
                 <button @click="togglePopup" type="button" class="border-none cursor-pointer bg-slate-50 hover:bg-gray-100 p-2 rounded">
