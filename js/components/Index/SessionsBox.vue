@@ -2,7 +2,15 @@
     <div class="p-4 py-6 bg-slate-50 rounded-md shadow mb-3">
            <div class="flex justify-between items-center">
             <div>
-                <span class="font-bold text-2xl text-gray-900 block">#{{ prop.session.client_reference_id }}</span>
+                <span class="font-bold text-2xl text-gray-900 block">
+                <a 
+                :href="`./post.php?post=${prop.session.metadata.order_id}&action=edit`"
+                class="no-underline hover:underline"
+                target="_blank"
+                >
+                    #{{ prop.session.client_reference_id }} <ExternalLink class="w-4 h-4" />
+                </a>
+                </span>
                 <span class="text-gray-500 block"> {{ prop.session.created_at}}</span>
             </div>
             <div>
@@ -11,7 +19,9 @@
             </div>
             <div>
                 <span class="font-bold text-2xl text-gray-900 block"> {{ prop.session.metadata.customer_name}}</span>
-                <span class="text-gray-900 block text-center"> {{ prop.session.metadata.phone}}</span>
+                <span class="text-gray-900 block text-center">
+                    <a class="no-underline hover:underline" :href="`tel:` +  prop.session.metadata.phone ">{{ prop.session.metadata.phone }}</a>
+                </span>
             </div>
             <div>
                 <button type="button" class="text-green-500 p-1 border-2 border-solid bg-stone-50 outline-none border-green-500 px-8 text-center inline-block rounded-full"> {{ prop.session.payment_status }}</button>
@@ -46,6 +56,7 @@
     import Menu from "../../icons/Menu.vue"
     import Search from "../../icons/Search.vue"
     import Cash from "../../icons/Cash.vue"
+    import ExternalLink from "../../icons/ExternalLink.vue"
     import {reactive} from "vue";
 
     const state  = reactive({popup: false});
