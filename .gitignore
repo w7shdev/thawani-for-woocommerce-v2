@@ -4,4 +4,4 @@ bkp/*
 node_module
 node_modules
 .DS_Store
-dist
+dist/*
