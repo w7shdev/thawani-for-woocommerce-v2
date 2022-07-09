@@ -24,7 +24,7 @@
                 </span>
             </div>
             <div>
-                <button type="button" class="text-green-500 p-1 border-2 border-solid bg-stone-50 outline-none border-green-500 px-8 text-center inline-block rounded-full"> {{ prop.session.payment_status }}</button>
+                 <payment-status :status="prop.session.payment_status"/>
             </div>
             <div class="relative">
                 <button @click="togglePopup" type="button" class="border-none cursor-pointer bg-slate-50 hover:bg-gray-100 p-2 rounded">
@@ -59,6 +59,7 @@
     import ExternalLink from "../../icons/ExternalLink.vue"
     import {reactive} from "vue";
     import  { timeFromNow } from "../../modules/datejs"
+    import PaymentStatus from "../../common/PaymentStatus.vue"
 
     const state  = reactive({popup: false});
 
