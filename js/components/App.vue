@@ -87,6 +87,7 @@ onMounted( async () => {
 
 async function setLimit(){
     state.sessionList = [];
+    filterPopupToggle()
     const response  = await request({
             skip : 1,
             limit: limit.value
