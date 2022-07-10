@@ -27,7 +27,7 @@
          </div>
        </div>
        <div class="flex justify-end mt-2">
-         <button type="button" class="px-4 p-2 bg-green-500 text-white min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-600 hover:text-white cursor-pointer">Update</button> 
+         <button @click="setLimit()" type="button" class="px-4 p-2 bg-green-500 text-white min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-600 hover:text-white cursor-pointer">Update</button> 
        </div>                         
     </div>
   </div>
@@ -84,6 +84,21 @@ onMounted( async () => {
     }
     state.sessionList = parsedResponse.data;
 })
+
+async function setLimit(){
+    state.sessionList = [];
+    const response  = await request({
+            skip : 1,
+            limit: limit.value
+        }, "get_all_sessions");
+   const parsedResponse = JSON.parse(response);
+   state.results = parsedResponse.data.length;
+
+   if(state.results > 0) {
+      state.isSessionAvailable = true; 
+    }
+    state.sessionList = parsedResponse.data;
+}
 
 function filterPopupToggle(){
     state.filterPopup = !state.filterPopup
