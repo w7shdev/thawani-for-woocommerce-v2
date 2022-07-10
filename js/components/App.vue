@@ -46,8 +46,8 @@
         </div>
         
         <div class="mt-4">
-            <div class="flex space-x-2 justify-end">
-                <button @click="prevPage()" class="px-4 p-2 bg-slate-50 text-green-600 min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-500 hover:text-white cursor-pointer">Previous</button>
+            <div v-if="state.sessionList.length > 0" class="flex space-x-2 justify-end">
+                <button v-if="page > 1" @click="prevPage()" class="px-4 p-2 bg-slate-50 text-green-600 min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-500 hover:text-white cursor-pointer">Previous</button>
                 <button @click="nextPage()" class="px-4 p-2 bg-green-500 text-white min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-600 hover:text-white cursor-pointer">Next</button>
             </div>
         </div>
