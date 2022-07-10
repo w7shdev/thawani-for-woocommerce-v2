@@ -18,7 +18,7 @@
             Per page
          </div>
          <div>
-            <select name="perpage" class="min-w-[120px]">
+            <select name="perpage" v-model="limit" class="min-w-[120px]">
               <option> 10 </option>
               <option> 25 </option>
               <option> 40 </option>
@@ -27,7 +27,7 @@
          </div>
        </div>
        <div class="flex justify-end mt-2">
-         <button type="button" class="px-4 p-2 bg-green-500 text-white min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-600 hover:text-white cursor-pointer">Update</button> 
+         <button @click="setLimit()" type="button" class="px-4 p-2 bg-green-500 text-white min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-600 hover:text-white cursor-pointer">Update</button> 
        </div>                         
     </div>
   </div>
@@ -46,9 +46,9 @@
         </div>
         
         <div class="mt-4">
-            <div class="flex space-x-2 justify-end">
-                <button class="px-4 p-2 bg-slate-50 text-green-600 min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-500 hover:text-white cursor-pointer">Previous</button>
-                <button class="px-4 p-2 bg-green-500 text-white min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-600 hover:text-white cursor-pointer">Next</button>
+            <div v-if="state.sessionList.length > 0" class="flex space-x-2 justify-end">
+                <button v-if="page > 1" @click="prevPage()" class="px-4 p-2 bg-slate-50 text-green-600 min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-500 hover:text-white cursor-pointer">Previous</button>
+                <button @click="nextPage()" class="px-4 p-2 bg-green-500 text-white min-w-[120px] border border-solid border-green-500 rounded hover:bg-green-600 hover:text-white cursor-pointer">Next</button>
             </div>
         </div>
     </div>
@@ -59,8 +59,10 @@ import Heading from "../common/Heading.vue"
 import SessionBox from "./Index/SessionsBox.vue"
 import Filter from "../icons/Filter.vue"
 import { request } from  "../service/fetch.js"
-import {reactive , onMounted } from "vue";
+import {reactive , ref , onMounted } from "vue";
 
+const limit  = ref(10)
+const page   = ref(1)
 const state  = reactive({ 
     filterPopup : false,
     results : 0,
@@ -68,23 +70,50 @@ const state  = reactive({
     isSessionAvailable : false
 })
 
-onMounted( async () => {
-
+async function doSessionRequest()
+{
     const response  = await request({
-            skip : 1,
-            limit: 20
-        }, "get_all_sessions");
+                        skip : page.value,
+                        limit: limit.value
+                        }, "get_all_sessions");
+    const parsedResponse = JSON.parse(response);
+    state.results = parsedResponse.data.length;
 
-   const parsedResponse = JSON.parse(response);
-   state.results = parsedResponse.data.length;
-
-   if(state.results > 0) {
-           state.isSessionAvailable = true; 
+    if(state.results > 0) {
+        state.isSessionAvailable = true; 
     }
     state.sessionList = parsedResponse.data;
+}
+
+
+onMounted( async () => {
+    await doSessionRequest();
 })
 
+async function setLimit(){
+    state.sessionList = [];
+    filterPopupToggle()
+    await doSessionRequest();
+}
 
+async function prevPage()
+{
+    state.sessionList = [];
+    if(page.value <= 1){
+        page.value = 1
+    }else{
+        page.value -= 1; 
+    }
+    await doSessionRequest();
+}
+
+
+async function nextPage()
+{
+    state.sessionList = [];
+    page.value += 1; 
+    await doSessionRequest();
+}
 
 function filterPopupToggle(){
     state.filterPopup = !state.filterPopup
