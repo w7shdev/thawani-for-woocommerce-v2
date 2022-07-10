@@ -18,7 +18,7 @@
             Per page
          </div>
          <div>
-            <select name="perpage" class="min-w-[120px]">
+            <select name="perpage" v-model="limit" class="min-w-[120px]">
               <option> 10 </option>
               <option> 25 </option>
               <option> 40 </option>
@@ -59,8 +59,9 @@ import Heading from "../common/Heading.vue"
 import SessionBox from "./Index/SessionsBox.vue"
 import Filter from "../icons/Filter.vue"
 import { request } from  "../service/fetch.js"
-import {reactive , onMounted } from "vue";
+import {reactive , ref , onMounted } from "vue";
 
+const limit  = ref(10)
 const state  = reactive({ 
     filterPopup : false,
     results : 0,
@@ -72,7 +73,7 @@ onMounted( async () => {
 
     const response  = await request({
             skip : 1,
-            limit: 20
+            limit: limit.value
         }, "get_all_sessions");
 
    const parsedResponse = JSON.parse(response);
@@ -83,8 +84,6 @@ onMounted( async () => {
     }
     state.sessionList = parsedResponse.data;
 })
-
-
 
 function filterPopupToggle(){
     state.filterPopup = !state.filterPopup
