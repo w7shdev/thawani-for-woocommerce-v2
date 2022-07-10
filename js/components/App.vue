@@ -104,17 +104,7 @@ async function doSessionRequest()
 async function setLimit(){
     state.sessionList = [];
     filterPopupToggle()
-    const response  = await request({
-            skip : page.value,
-            limit: limit.value
-        }, "get_all_sessions");
-   const parsedResponse = JSON.parse(response);
-   state.results = parsedResponse.data.length;
-
-   if(state.results > 0) {
-      state.isSessionAvailable = true; 
-    }
-    state.sessionList = parsedResponse.data;
+    await doSessionRequest();
 }
 
 function filterPopupToggle(){
