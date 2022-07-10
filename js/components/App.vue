@@ -70,22 +70,6 @@ const state  = reactive({
     isSessionAvailable : false
 })
 
-onMounted( async () => {
-
-    const response  = await request({
-            skip : page.value,
-            limit: limit.value
-        }, "get_all_sessions");
-
-   const parsedResponse = JSON.parse(response);
-   state.results = parsedResponse.data.length;
-
-   if(state.results > 0) {
-           state.isSessionAvailable = true; 
-    }
-    state.sessionList = parsedResponse.data;
-})
-
 async function doSessionRequest()
 {
     const response  = await request({
@@ -100,6 +84,11 @@ async function doSessionRequest()
     }
     state.sessionList = parsedResponse.data;
 }
+
+
+onMounted( async () => {
+    await doSessionRequest();
+})
 
 async function setLimit(){
     state.sessionList = [];
