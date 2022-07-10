@@ -62,6 +62,7 @@ import { request } from  "../service/fetch.js"
 import {reactive , ref , onMounted } from "vue";
 
 const limit  = ref(10)
+const page   = ref(1)
 const state  = reactive({ 
     filterPopup : false,
     results : 0,
@@ -72,7 +73,7 @@ const state  = reactive({
 onMounted( async () => {
 
     const response  = await request({
-            skip : 1,
+            skip : page.value,
             limit: limit.value
         }, "get_all_sessions");
 
@@ -89,7 +90,7 @@ async function setLimit(){
     state.sessionList = [];
     filterPopupToggle()
     const response  = await request({
-            skip : 1,
+            skip : page.value,
             limit: limit.value
         }, "get_all_sessions");
    const parsedResponse = JSON.parse(response);
