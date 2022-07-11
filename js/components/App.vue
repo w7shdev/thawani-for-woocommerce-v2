@@ -39,7 +39,7 @@
 
         <!-- session box --> 
         <div v-if="state.sessionList.length < 1 ">
-          No result   
+         <SessionWaiting />
         </div>
         <div v-else> 
             <SessionBox v-for="session in state.sessionList" :session="session" :key="session.session_id"/>
@@ -57,6 +57,7 @@
 <script setup>
 import Heading from "../common/Heading.vue"
 import SessionBox from "./Index/SessionsBox.vue"
+import SessionWaiting from "./Index/SessionWaiting.vue"
 import Filter from "../icons/Filter.vue"
 import { request } from  "../service/fetch.js"
 import {reactive , ref , onMounted } from "vue";
