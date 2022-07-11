@@ -5,7 +5,10 @@
   <div class="flex-grow">
         <Heading class="text-2xl text-green-600 mb-1 mt-6" title="Thawani History sessions" />
         <p class="my-1">Listing your last payment history sessions. The order is from the latests to the oldest.</p>
-        <p class="mt-1 text-gray-500"> Total Results : {{ state.results }} </p>
+        <p v-if="state.results > 0" class="mt-1 text-gray-500"> Total Results : {{ state.results }} </p>
+        <p v-else  class="mt-1">
+          <span class="bg-gray-200 w-20 h-5 rounded animate-pulse inline-block"></span>
+        </p>
   </div>
   <div class="relative">
     <button @click="filterPopupToggle()" class="bg-gray-200 rounded hover:bg-slate-50 shadow cursor-pointer text-gray-500 p-2 px-4 border-none  inline-block">
