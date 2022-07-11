@@ -96,6 +96,7 @@ onMounted( async () => {
 
 async function setLimit(){
     state.sessionList = [];
+    state.results  = 0;
     filterPopupToggle()
     await doSessionRequest();
 }
@@ -103,6 +104,7 @@ async function setLimit(){
 async function prevPage()
 {
     state.sessionList = [];
+    state.results  = 0;
     if(page.value <= 1){
         page.value = 1
     }else{
@@ -115,6 +117,7 @@ async function prevPage()
 async function nextPage()
 {
     state.sessionList = [];
+    state.results  = 0;
     page.value += 1; 
     await doSessionRequest();
 }
