@@ -5,7 +5,10 @@
   <div class="flex-grow">
         <Heading class="text-2xl text-green-600 mb-1 mt-6" title="Thawani History sessions" />
         <p class="my-1">Listing your last payment history sessions. The order is from the latests to the oldest.</p>
-        <p class="mt-1 text-gray-500"> Total Results : {{ state.results }} </p>
+        <p v-if="state.results > 0" class="mt-1 text-gray-500"> Total Results : {{ state.results }} </p>
+        <p v-else  class="mt-1">
+          <span class="bg-gray-200 w-20 h-5 rounded animate-pulse inline-block"></span>
+        </p>
   </div>
   <div class="relative">
     <button @click="filterPopupToggle()" class="bg-gray-200 rounded hover:bg-slate-50 shadow cursor-pointer text-gray-500 p-2 px-4 border-none  inline-block">
@@ -39,7 +42,7 @@
 
         <!-- session box --> 
         <div v-if="state.sessionList.length < 1 ">
-          No result   
+         <SessionWaiting />
         </div>
         <div v-else> 
             <SessionBox v-for="session in state.sessionList" :session="session" :key="session.session_id"/>
@@ -57,6 +60,7 @@
 <script setup>
 import Heading from "../common/Heading.vue"
 import SessionBox from "./Index/SessionsBox.vue"
+import SessionWaiting from "./Index/SessionWaiting.vue"
 import Filter from "../icons/Filter.vue"
 import { request } from  "../service/fetch.js"
 import {reactive , ref , onMounted } from "vue";
@@ -92,6 +96,7 @@ onMounted( async () => {
 
 async function setLimit(){
     state.sessionList = [];
+    state.results  = 0;
     filterPopupToggle()
     await doSessionRequest();
 }
@@ -99,6 +104,7 @@ async function setLimit(){
 async function prevPage()
 {
     state.sessionList = [];
+    state.results  = 0;
     if(page.value <= 1){
         page.value = 1
     }else{
@@ -111,6 +117,7 @@ async function prevPage()
 async function nextPage()
 {
     state.sessionList = [];
+    state.results  = 0;
     page.value += 1; 
     await doSessionRequest();
 }
