@@ -85,6 +85,8 @@
                 session : prop.session
             })
         overlayStore.toggle(true)
+        closePoupUp();
+        window.scrollTo(0,0)
     }
 
 </script>
