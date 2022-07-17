@@ -2,7 +2,8 @@
     <div>
        <div>
            <h1 class="font-bold text-2xl uppercase m-0">ORDER #{{ session.metadata.order_id }} </h1>
-           <span class="inline-block p-1 text-center rounded bg-gray-100 text-gray-500 text-base px-4 min-w-[120px]"> complete </span>
+           <span v-if="!state.isLoaded" class="inline-block p-1 h-6 text-center rounded bg-gray-100 text-gray-500 text-base px-4 min-w-[120px] animate-pulse"></span>
+           <span v-else class="inline-block p-1 text-center rounded bg-gray-100 text-gray-500 text-base px-4 min-w-[120px]"> {{ state.status }} </span>
        </div>
        <div class="mt-8">
            <h1 class="font-bold text-2xl uppercase m-0">Thawani Status</h1>
@@ -39,13 +40,25 @@ import ThawaniStatus from "./ThawaniStatus.vue"
 import Copy from "../../icons/Copy.vue"
 import { useOverlayStore } from "../../stores/overlayStore.js"
 import { useSessionStore } from "../../stores/session-store.js"
-import { ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { request } from "../../service/fetch.js"
 
 const sessionStore  = useSessionStore();
 const overlayStore = useOverlayStore();
 const prop = defineProps(['session'])
 let isCopied  = ref(false);
+const state  = reactive({
+        isLoaded: false,
+        status : ""
+})
+
+onMounted(async () =>{
+
+    const {status} = await request({order_id : prop.session.metadata.order_id}, 'get_order_status')
+    state.isLoaded = true; 
+    state.status   = status;
+
+})
 
 function close(){
 overlayStore.toggle(false)
