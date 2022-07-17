@@ -1,5 +1,14 @@
 <template>
-    <div class="container mx-auto lg:w-[750px]">
+    <div class="container relative mx-auto lg:w-[750px]">
+
+    <!-- overlay -->
+    <div v-if="overlayStore.isOverlay" class="bg-gray-900/50 fixed inset-0 z-20"></div>
+
+    <!-- show session details --> 
+    <div v-if="sessionStore.get != null" class="p-8 bg-slate-50 rounded top-32 shadow absolute z-30 w-[500px] mx-auto left-0 right-0">
+      <SessionDetials :session="sessionStore.get" />
+    </div>
+    <!-- /show session details -->
 
 <div class="flex items-center">
   <div class="flex-grow">
@@ -61,10 +70,16 @@
 import Heading from "../common/Heading.vue"
 import SessionBox from "./Index/SessionsBox.vue"
 import SessionWaiting from "./Index/SessionWaiting.vue"
+import SessionDetials from "./Index/SessionDetails.vue"
 import Filter from "../icons/Filter.vue"
 import { request } from  "../service/fetch.js"
-import {reactive , ref , onMounted } from "vue";
+import {reactive , ref , onMounted, computed } from "vue";
+import { useSessionStore } from "../stores/session-store.js"
+import { useOverlayStore } from "../stores/overlayStore.js"
+import {mapState} from "pinia"
 
+const overlayStore = useOverlayStore();
+const sessionStore = useSessionStore();
 const limit  = ref(10)
 const page   = ref(1)
 const state  = reactive({ 
@@ -72,6 +87,11 @@ const state  = reactive({
     results : 0,
     sessionList : [],
     isSessionAvailable : false
+})
+
+computed({
+    ...mapState(overlayStore ,['isOverlay']),
+    ...mapState(sessionStore , ['session']),
 })
 
 async function doSessionRequest()
