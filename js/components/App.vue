@@ -5,7 +5,7 @@
     <div v-if="overlayStore.isOverlay" class="bg-gray-900/50 fixed inset-0 z-20"></div>
 
     <!-- show session details --> 
-    <div v-if="sessionStore.get != null" class="p-8 bg-slate-50 rounded top-32 shadow absolute z-30 w-[500px] mx-auto left-0 right-0">
+    <div v-if="sessionStore.get != null && !sessionStore.isRefend" class="p-8 bg-slate-50 rounded top-32 shadow absolute z-30 w-[500px] mx-auto left-0 right-0">
       <SessionDetials :session="sessionStore.get" />
     </div>
     <!-- /show session details -->
@@ -91,7 +91,7 @@ const state  = reactive({
 
 computed({
     ...mapState(overlayStore ,['isOverlay']),
-    ...mapState(sessionStore , ['session']),
+    ...mapState(sessionStore , ['session', 'isRefend']),
 })
 
 async function doSessionRequest()
