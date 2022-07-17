@@ -32,7 +32,7 @@
                 </button>
                 <div v-if="state.popup"  v-click-outside="closePoupUp" class="absolute p-2 bg-slate-50 rounded shadow min-w-[200px] right-0 top-8 z-10">
                    <div class="flex-1">
-                       <div class="flex space-x-2 items-center p-2 rounded cursor-pointer hover:bg-slate-100">
+                       <div @click="viewDetails" class="flex space-x-2 items-center p-2 rounded cursor-pointer hover:bg-slate-100">
                          <div>
                            <Search />
                          </div>
@@ -78,6 +78,13 @@
 
     function closePoupUp(){
         state.popup = false;
+    }
+
+    function viewDetails() {
+        sessionStore.$patch({
+                session : prop.session
+            })
+        overlayStore.toggle(true)
     }
 
 </script>
