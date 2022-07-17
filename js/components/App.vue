@@ -10,6 +10,12 @@
     </div>
     <!-- /show session details -->
 
+    <!-- show refund --> 
+    <div v-if="sessionStore.get != null && sessionStore.isRefend" class="p-8 bg-slate-50 rounded top-32 shadow absolute z-30 w-[500px] mx-auto left-0 right-0">
+      <Refund :session="sessionStore.get"/>
+    </div>
+    <!-- /show refund -->
+
 <div class="flex items-center">
   <div class="flex-grow">
         <Heading class="text-2xl text-green-600 mb-1 mt-6" title="Thawani History sessions" />
@@ -71,6 +77,7 @@ import Heading from "../common/Heading.vue"
 import SessionBox from "./Index/SessionsBox.vue"
 import SessionWaiting from "./Index/SessionWaiting.vue"
 import SessionDetials from "./Index/SessionDetails.vue"
+import Refund from "./Refund/Index.vue"
 import Filter from "../icons/Filter.vue"
 import { request } from  "../service/fetch.js"
 import {reactive , ref , onMounted, computed } from "vue";
