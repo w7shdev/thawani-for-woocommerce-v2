@@ -60,6 +60,12 @@
     import {reactive} from "vue";
     import  { timeFromNow } from "../../modules/datejs"
     import PaymentStatus from "../../common/PaymentStatus.vue"
+    import { useSessionStore } from "../../stores/session-store.js"
+    import { useOverlayStore } from "../../stores/overlayStore.js"
+
+    const sessionStore = useSessionStore();
+    const overlayStore = useOverlayStore();
+
 
     const state  = reactive({popup: false});
 
