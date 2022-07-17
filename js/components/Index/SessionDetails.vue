@@ -40,10 +40,13 @@ import Copy from "../../icons/Copy.vue"
 import { useOverlayStore } from "../../stores/overlayStore.js"
 import { useSessionStore } from "../../stores/session-store.js"
 import { ref } from "vue";
+import { request } from "../../service/fetch.js"
+
 const sessionStore  = useSessionStore();
 const overlayStore = useOverlayStore();
 const prop = defineProps(['session'])
 let isCopied  = ref(false);
+
 function close(){
 overlayStore.toggle(false)
 sessionStore.$patch({session:null})
