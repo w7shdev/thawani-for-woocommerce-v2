@@ -123,7 +123,6 @@ function close(){
 }
 
 async function sendRefund(){
-    debugger;
     let message = '';
     if(isOtherSelected.value){
         message  = refundMessage.value;
