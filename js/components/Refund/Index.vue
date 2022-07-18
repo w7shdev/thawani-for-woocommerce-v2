@@ -31,7 +31,11 @@
 
 <script setup>
 import { ref } from "vue"
+import { useOverlayStore } from "../../stores/overlayStore.js"
+import { useSessionStore } from "../../stores/session-store.js"
 
+const sessionStore = useSessionStore();
+const overlayStore = useOverlayStore();
 
 const prop = defineProps(['session'])
 const refundReasons = ref([
@@ -47,5 +51,13 @@ const refundReasons = ref([
     title : 'Other',
     selected : false
 }
-])
+]);
+
+function close(){
+    overlayStore.toggle(false)
+    sessionStore.$patch({
+        session:null,
+        isRefend: false
+    })
+}
 </script>
