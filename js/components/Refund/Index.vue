@@ -2,7 +2,7 @@
  <div class="relative">
    
    <!-- show approve popup -->
-   <div v-if="state.isRefendPopupShown" class="bg-slate-50 rounded p-8 shadow absolute top-24 left-16">
+   <dialog :open="state.isRefendPopupShown" class="bg-slate-50 rounded p-8 shadow absolute top-24 left-0 border-none">
      <div class="text-center">
          <h2 class="m-0 text-green-500">Are you sure to refund this transaction?</h2>
          <p class="mt-1">This action can not be re-done.</p>
@@ -11,7 +11,7 @@
          <button @click="closeRefundPopup" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">No</button>
          <button class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2">Yes</button>
      </div>
-   </div>
+   </dialog>
    <!-- /show approve popup -->
    <div class="-mt-2">
      <h1 class="uppercase text-3xl font-black my-0">REFUND</h1>
