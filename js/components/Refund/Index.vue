@@ -22,7 +22,7 @@
   <textarea name="message" class="placeholder:text-gray-500 border border-solid border-green-500 w-full h-32" placeholder="Write refund reason"></textarea>
 
   <div class="mt-4 flex space-x-4">
-    <button class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">Close</button>
+    <button @click="close" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">Close</button>
     <button class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2 ">Refund</button>
   </div>
  </div>
@@ -30,10 +30,10 @@
 
 
 <script setup>
-import { ref } from "vue"
+import { onMounted, reactive, ref } from "vue"
 import { useOverlayStore } from "../../stores/overlayStore.js"
 import { useSessionStore } from "../../stores/session-store.js"
-
+import { request } from "../../service/fetch.js"
 const sessionStore = useSessionStore();
 const overlayStore = useOverlayStore();
 
@@ -52,6 +52,17 @@ const refundReasons = ref([
     selected : false
 }
 ]);
+
+const state = reactive({
+        isLoaded: false,
+        status: ''
+})
+
+onMounted(async ()=>{
+    const {status} = await request({order_id : prop.session.metadata.order_id}, 'get_order_status')
+    state.isLoaded = true; 
+    state.status   = status;
+})
 
 function close(){
     overlayStore.toggle(false)
