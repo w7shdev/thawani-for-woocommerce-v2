@@ -14,9 +14,13 @@
        <li
          v-for="(reason, index) in refundReasons" 
          :key="reason.title"
-         class="p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer flex space-x-3 items-center">
+         @click="selectOption(index)"
+         class="p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer flex space-x-3 items-center"
+         :class="{'bg-green-500 !text-white': reason.selected}"
+         >
           <span>
-           <i class="h-3 w-3 block bg-white rounded-full border border-solid border-green-500"></i>
+           <Check class="w-[16px] h-[16px]" v-if="reason.selected"/>
+           <i v-else class="h-3 w-3 block bg-white rounded-full border border-solid border-green-500"></i>
           </span>
           <span>{{ reason.title }}</span>
        </li>
@@ -33,6 +37,7 @@
 
 
 <script setup>
+import Check from "../../icons/Check.vue"
 import { onMounted, reactive, ref } from "vue"
 import { useOverlayStore } from "../../stores/overlayStore.js"
 import { useSessionStore } from "../../stores/session-store.js"
@@ -66,6 +71,15 @@ onMounted(async ()=>{
     state.isLoaded = true; 
     state.status   = status;
 })
+
+function resetSelection(){
+    refundReasons.value.forEach(item => item.selected = false)
+}
+
+function selectOption(index){
+    resetSelection();
+    refundReasons.value[index].selected = true
+}
 
 function close(){
     overlayStore.toggle(false)
