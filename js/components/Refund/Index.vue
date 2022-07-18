@@ -170,7 +170,7 @@ async function sendRefund(){
         message = selected[0].title;
     }
 
-    state.refundSuccess = REFUND_WAITING; // hiding the request tempo
+    state.refundSuccess = REFUND_WAITING;
 
     state.isRefundSending = true; 
     const response = await request({
