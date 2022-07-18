@@ -10,7 +10,7 @@
      </div>
      <div class="flex space-x-4 mt-4">
          <button @click="closeRefundPopup" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">No</button>
-         <button class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2">Yes</button>
+         <button @click="sendRefund" class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2">Yes</button>
      </div>
    </dialog>
    <!-- /show approve popup -->
@@ -39,7 +39,7 @@
        </li>
    </ul>
 
-  <textarea v-model="refundMessage" ref="refundMessageRef" name="message" class="placeholder:text-gray-500 border border-solid border-green-500 w-full h-32" :disabled="isOtherSelected" placeholder="Write refund reason"></textarea>
+  <textarea v-model="refundMessage" ref="refundMessageRef" name="message" class="placeholder:text-gray-500 border border-solid border-green-500 w-full h-32" :disabled="!isOtherSelected" placeholder="Write refund reason"></textarea>
 
   <div class="mt-4 flex space-x-4">
     <button @click="close" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">Close</button>
@@ -85,13 +85,13 @@ const state = reactive({
 
 const isOtherSelected = computed(() => {
    const OTHER_OPTION_INDEX = refundReasons.value.length - 1;
-   return !refundReasons.value[OTHER_OPTION_INDEX].selected;
+   return refundReasons.value[OTHER_OPTION_INDEX].selected;
 })
 
 
 watch(isOtherSelected ,async (oldValue , newValue) => {
        await nextTick()
-       if(newValue) 
+       if(oldValue) 
             refundMessageRef.value.focus()
 })
 
@@ -122,7 +122,25 @@ function close(){
     })
 }
 
-function closeRefundPopup(){
-        state.isRefendPopupShown = false
+async function sendRefund(){
+    debugger;
+    let message = '';
+    if(isOtherSelected.value){
+        message  = refundMessage.value;
+    }else {
+        const selected = refundReasons.value.filter((a) => a.selected)
+        message = selected[0].title;
     }
+
+    const response = await request({
+            order_id: prop.session.metadata.order_id,
+            invoice: prop.session.invoice,
+            message
+        }, 'send_refund')
+    console.log(response)
+}
+
+function closeRefundPopup(){
+    state.isRefendPopupShown = false
+}
 </script>
