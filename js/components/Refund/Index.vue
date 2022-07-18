@@ -152,6 +152,7 @@ function close(){
 }
 
 async function sendRefund(){
+    const REFUND_SUCCESS = 1 , REFUND_FAILED = 0 , REFUND_WAITING = -2;
     let message = '';
     const isSelected  = (item) => item.selected;
 
@@ -169,7 +170,7 @@ async function sendRefund(){
         message = selected[0].title;
     }
 
-    state.refundSuccess = -2; // hiding the request tempo
+    state.refundSuccess = REFUND_WAITING; // hiding the request tempo
 
     state.isRefundSending = true; 
     const response = await request({
@@ -181,8 +182,8 @@ async function sendRefund(){
      state.isRefundSending = false;
      const { success , description} = JSON.parse(response)
 
-     if(success) state.refundSuccess = 1;
-     else state.refundSuccess = 0
+     if(success) state.refundSuccess = REFUND_SUCCESS;
+     else state.refundSuccess = REFUND_FAILED
 
     state.refundResponseMessage = description
 
