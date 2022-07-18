@@ -8,7 +8,11 @@
          <h2 class="m-0 text-green-500">Are you sure to refund this transaction?</h2>
          <p class="mt-1">This action can not be re-done.</p>
      </div>
-     <div class="flex space-x-4 mt-4">
+     <div v-if="state.isRefundSending" class="text-green-500 flex flex-col justify-center items-center space-y-2">
+        <Spin /> 
+        <div>Sending Refund request</div>
+     </div>
+     <div v-if="state.refundSuccess == -1" class="flex space-x-4 mt-4">
          <button @click="closeRefundPopup" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">No</button>
          <button @click="sendRefund" class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2">Yes</button>
      </div>
@@ -54,6 +58,7 @@
 
 <script setup>
 import Check from "../../icons/Check.vue"
+import Spin from "../../icons/Spin.vue"
 import { computed, nextTick, onMounted, reactive, ref, watch } from "vue"
 import { useOverlayStore } from "../../stores/overlayStore.js"
 import { useSessionStore } from "../../stores/session-store.js"
@@ -86,7 +91,8 @@ const state = reactive({
         isRefendPopupShown: false,
         refundSuccess: -1, // 0 fail 1 success -1 stall
         refundResponseMessage: "",
-        requiredOption: false
+        requiredOption: false,
+        isRefundSending: false
 })
 
 const isOtherSelected = computed(() => {
@@ -126,7 +132,7 @@ function refund(){
        return false
     }
 
-    if(refundMessage.value === "")
+    if(refundMessage.value === "" && isOtherSelected.value)
         return false
 
     state.isRefendPopupShown = true;
@@ -158,11 +164,14 @@ async function sendRefund(){
         message = selected[0].title;
     }
 
+    state.isRefundSending = true; 
     const response = await request({
             order_id: prop.session.metadata.order_id,
             invoice: prop.session.invoice,
             message
         }, 'send_refund')
+
+     state.isRefundSending = false;
      const { success , description} = JSON.parse(response)
 
      if(success) state.refundSuccess = 1;
