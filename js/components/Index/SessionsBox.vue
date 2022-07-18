@@ -39,7 +39,7 @@
                          <div>View all details</div>
                        </div>
 
-                       <div class="flex space-x-2 items-center p-2 rounded cursor-pointer hover:bg-slate-100">
+                       <div @click="showRefund" class="flex space-x-2 items-center p-2 rounded cursor-pointer hover:bg-slate-100">
                          <div>
                            <Cash />
                          </div>
@@ -83,6 +83,15 @@
     function viewDetails() {
         sessionStore.$patch({
                 session : prop.session
+            })
+        overlayStore.toggle(true)
+        closePoupUp();
+        window.scrollTo(0,0)
+    }
+    function showRefund() {
+        sessionStore.$patch({
+                session : prop.session,
+                isRefend : true
             })
         overlayStore.toggle(true)
         closePoupUp();

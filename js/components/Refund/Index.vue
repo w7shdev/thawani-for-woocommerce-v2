@@ -1,0 +1,195 @@
+<template>
+ <div class="relative">
+   
+   <!-- show approve popup -->
+   <div v-if="state.isRefendPopupShown" class="bg-slate-600/40 absolute z-10 -inset-8 -top-6"></div>
+   <dialog :open="state.isRefendPopupShown" class="bg-slate-50 z-20 rounded p-8 shadow absolute top-24 left-0 border-none">
+     <div class="text-center">
+         <h2 class="m-0 text-green-500">Are you sure to refund this transaction?</h2>
+         <p class="mt-1">This action can not be re-done.</p>
+     </div>
+     <div v-if="state.isRefundSending" class="text-green-500 flex flex-col justify-center items-center space-y-2">
+        <Spin /> 
+        <div>Sending Refund request</div>
+     </div>
+     <div v-if="state.refundSuccess > -1 " class="flex flex-col justify-center items-center space-y-8">
+       <span v-if="state.refundSuccess == 0" class="text-red-500">Refund can not be created!</span> 
+       <span v-else class="text-green-500">Refund can not be created!</span> 
+    <button @click="closeRefundPopup" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">Close</button>
+     </div>
+     <div v-if="state.refundSuccess == -1" class="flex space-x-4 mt-4">
+         <button @click="closeRefundPopup" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">No</button>
+         <button @click="sendRefund" class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2">Yes</button>
+     </div>
+   </dialog>
+   <!-- /show approve popup -->
+   <div class="-mt-2">
+     <h1 class="uppercase text-3xl font-black my-0">REFUND</h1>
+     <h1 class="font-bold text-2xl uppercase m-0 -mt-2">ORDER #{{ session.metadata.order_id }} 
+     <small v-if="state.isloaded" class="bg-gray-100 text-xs text-gray-500 inline-block p-0.5 rounded animate-pulse h-4"></small>
+     <small v-else class="bg-gray-100 text-xs text-gray-500 inline-block p-0.5 rounded"> {{ state.status }}</small>
+     </h1>
+     <p class="my-1"><span class="text-red-500">*</span>I want to refund because of the following</p>
+     <p v-if="state.requiredOption" class="mt-1 text-red-500">
+       Select one option is required.
+     </p>
+   </div>
+
+   <ul>
+       <li
+         v-for="(reason, index) in refundReasons" 
+         :key="reason.title"
+         @click="selectOption(index)"
+         class="p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer flex space-x-3 items-center"
+         :class="{'bg-green-500 !text-white': reason.selected}"
+         >
+          <span>
+           <Check class="w-[16px] h-[16px]" v-if="reason.selected"/>
+           <i v-else class="h-3 w-3 block bg-white rounded-full border border-solid border-green-500"></i>
+          </span>
+          <span>{{ reason.title }}</span>
+       </li>
+   </ul>
+
+  <textarea v-model="refundMessage" ref="refundMessageRef" name="message" class="placeholder:text-gray-500 border border-solid border-green-500 w-full h-32" :disabled="!isOtherSelected" placeholder="Write refund reason"></textarea>
+
+  <div class="mt-4 flex space-x-4">
+    <button @click="close" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">Close</button>
+    <button @click="refund()" class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2 ">Refund</button>
+  </div>
+ </div>
+</template>
+
+
+<script setup>
+import Check from "../../icons/Check.vue"
+import Spin from "../../icons/Spin.vue"
+import { computed, nextTick, onMounted, reactive, ref, watch } from "vue"
+import { useOverlayStore } from "../../stores/overlayStore.js"
+import { useSessionStore } from "../../stores/session-store.js"
+import { request } from "../../service/fetch.js"
+const sessionStore = useSessionStore();
+const overlayStore = useOverlayStore();
+
+const prop = defineProps(['session'])
+const refundReasons = ref([
+{
+    title : 'I choose the wrong product',
+    selected : false
+},
+{
+    title : 'The product is damged',
+    selected : false
+},
+{
+    title : 'Other',
+    selected : false
+}
+]);
+
+const refundMessageRef = ref(null)
+const refundMessage = ref("");
+
+const state = reactive({
+        isLoaded: false,
+        status: '',
+        isRefendPopupShown: false,
+        refundSuccess: -1, // 0 fail 1 success -1 stall
+        refundResponseMessage: "",
+        requiredOption: false,
+        isRefundSending: false
+})
+
+const isOtherSelected = computed(() => {
+   const OTHER_OPTION_INDEX = refundReasons.value.length - 1;
+   return refundReasons.value[OTHER_OPTION_INDEX].selected;
+})
+
+
+watch(isOtherSelected ,async (oldValue , newValue) => {
+       await nextTick()
+       if(oldValue) 
+            refundMessageRef.value.focus()
+})
+
+onMounted(async ()=>{
+    const {status} = await request({order_id : prop.session.metadata.order_id}, 'get_order_status')
+    state.isLoaded = true; 
+    state.status   = status;
+})
+
+function resetSelection(){
+    refundReasons.value.forEach(item => item.selected = false)
+}
+
+function selectOption(index){
+    resetSelection();
+    refundReasons.value[index].selected = true
+}
+
+function refund(){
+    const isSelected  = (item) => item.selected;
+
+    const isOptionSelected = refundReasons.value.filter(isSelected)
+
+    if(isOptionSelected.length < 1) {
+       state.requiredOption = true 
+       return false
+    }
+
+    if(refundMessage.value === "" && isOtherSelected.value)
+        return false
+
+    state.isRefendPopupShown = true;
+}
+
+function close(){
+    overlayStore.toggle(false)
+    sessionStore.$patch({
+        session:null,
+        isRefend: false
+    })
+}
+
+async function sendRefund(){
+    const REFUND_SUCCESS = 1 , REFUND_FAILED = 0 , REFUND_WAITING = -2;
+    let message = '';
+    const isSelected  = (item) => item.selected;
+
+    const isOptionSelected = refundReasons.value.filter(isSelected)
+
+    if(isOptionSelected.length < 1) {
+       state.requiredOption = true 
+       return false
+    }
+
+    if(isOtherSelected.value){
+        message  = refundMessage.value;
+    }else {
+        const selected = refundReasons.value.filter(isSelected)
+        message = selected[0].title;
+    }
+
+    state.refundSuccess = REFUND_WAITING;
+
+    state.isRefundSending = true; 
+    const response = await request({
+            order_id: prop.session.metadata.order_id,
+            invoice: prop.session.invoice,
+            message
+        }, 'send_refund')
+
+     state.isRefundSending = false;
+     const { success , description} = JSON.parse(response)
+
+     if(success) state.refundSuccess = REFUND_SUCCESS;
+     else state.refundSuccess = REFUND_FAILED
+
+    state.refundResponseMessage = description
+
+}
+
+function closeRefundPopup(){
+    state.isRefendPopupShown = false
+}
+</script>
