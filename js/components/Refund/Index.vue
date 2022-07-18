@@ -20,7 +20,10 @@
      <small v-if="state.isloaded" class="bg-gray-100 text-xs text-gray-500 inline-block p-0.5 rounded animate-pulse h-4"></small>
      <small v-else class="bg-gray-100 text-xs text-gray-500 inline-block p-0.5 rounded"> {{ state.status }}</small>
      </h1>
-     <p class="mt-1">I want to refund because of the following</p>
+     <p class="my-1"><span class="text-red-500">*</span>I want to refund because of the following</p>
+     <p v-if="state.requiredOption" class="mt-1 text-red-500">
+       Select one option is required.
+     </p>
    </div>
 
    <ul>
@@ -80,7 +83,10 @@ const refundMessage = ref("");
 const state = reactive({
         isLoaded: false,
         status: '',
-        isRefendPopupShown: false
+        isRefendPopupShown: false,
+        refundSuccess: -1, // 0 fail 1 success -1 stall
+        refundResponseMessage: "",
+        requiredOption: false
 })
 
 const isOtherSelected = computed(() => {
@@ -111,7 +117,19 @@ function selectOption(index){
 }
 
 function refund(){
-  state.isRefendPopupShown = true;
+    const isSelected  = (item) => item.selected;
+
+    const isOptionSelected = refundReasons.value.filter(isSelected)
+
+    if(isOptionSelected.length < 1) {
+       state.requiredOption = true 
+       return false
+    }
+
+    if(refundMessage.value === "")
+        return false
+
+    state.isRefendPopupShown = true;
 }
 
 function close(){
@@ -124,10 +142,19 @@ function close(){
 
 async function sendRefund(){
     let message = '';
+    const isSelected  = (item) => item.selected;
+
+    const isOptionSelected = refundReasons.value.filter(isSelected)
+
+    if(isOptionSelected.length < 1) {
+       state.requiredOption = true 
+       return false
+    }
+
     if(isOtherSelected.value){
         message  = refundMessage.value;
     }else {
-        const selected = refundReasons.value.filter((a) => a.selected)
+        const selected = refundReasons.value.filter(isSelected)
         message = selected[0].title;
     }
 
@@ -136,6 +163,13 @@ async function sendRefund(){
             invoice: prop.session.invoice,
             message
         }, 'send_refund')
+     const { success , description} = JSON.parse(response)
+
+     if(success) state.refundSuccess = 1;
+     else state.refundSuccess = 0
+
+    state.refundResponseMessage = description
+
 }
 
 function closeRefundPopup(){
