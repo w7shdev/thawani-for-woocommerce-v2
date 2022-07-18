@@ -2,7 +2,8 @@
  <div class="relative">
    
    <!-- show approve popup -->
-   <dialog :open="state.isRefendPopupShown" class="bg-slate-50 rounded p-8 shadow absolute top-24 left-0 border-none">
+   <div v-if="state.isRefendPopupShown" class="bg-slate-600/40 absolute z-10 -inset-8 -top-6"></div>
+   <dialog :open="state.isRefendPopupShown" class="bg-slate-50 z-20 rounded p-8 shadow absolute top-24 left-0 border-none">
      <div class="text-center">
          <h2 class="m-0 text-green-500">Are you sure to refund this transaction?</h2>
          <p class="mt-1">This action can not be re-done.</p>
