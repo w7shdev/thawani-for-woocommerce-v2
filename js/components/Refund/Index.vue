@@ -26,7 +26,7 @@
        </li>
    </ul>
 
-  <textarea name="message" class="placeholder:text-gray-500 border border-solid border-green-500 w-full h-32" :disabled="isOtherSelected" placeholder="Write refund reason"></textarea>
+  <textarea ref="refundMessageRef" name="message" class="placeholder:text-gray-500 border border-solid border-green-500 w-full h-32" :disabled="isOtherSelected" placeholder="Write refund reason"></textarea>
 
   <div class="mt-4 flex space-x-4">
     <button @click="close" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">Close</button>
@@ -38,7 +38,7 @@
 
 <script setup>
 import Check from "../../icons/Check.vue"
-import { computed, onMounted, reactive, ref } from "vue"
+import { computed, nextTick, onMounted, reactive, ref, watch } from "vue"
 import { useOverlayStore } from "../../stores/overlayStore.js"
 import { useSessionStore } from "../../stores/session-store.js"
 import { request } from "../../service/fetch.js"
@@ -61,6 +61,8 @@ const refundReasons = ref([
 }
 ]);
 
+const refundMessageRef = ref(null)
+
 const state = reactive({
         isLoaded: false,
         status: ''
@@ -69,6 +71,13 @@ const state = reactive({
 const isOtherSelected = computed(() => {
    const OTHER_OPTION_INDEX = refundReasons.value.length - 1;
    return !refundReasons.value[OTHER_OPTION_INDEX].selected;
+})
+
+
+watch(isOtherSelected ,async (oldValue , newValue) => {
+       await nextTick()
+       if(newValue) 
+            refundMessageRef.value.focus()
 })
 
 onMounted(async ()=>{
