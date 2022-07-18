@@ -8,7 +8,7 @@
          <p class="mt-1">This action can not be re-done.</p>
      </div>
      <div class="flex space-x-4 mt-4">
-         <button class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">No</button>
+         <button @click="closeRefundPopup" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">No</button>
          <button class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2">Yes</button>
      </div>
    </div>
@@ -120,4 +120,8 @@ function close(){
         isRefend: false
     })
 }
+
+function closeRefundPopup(){
+        state.isRefendPopupShown = false
+    }
 </script>
