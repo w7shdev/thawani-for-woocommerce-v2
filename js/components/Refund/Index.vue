@@ -1,6 +1,18 @@
 <template>
- <div>
+ <div class="relative">
    
+   <!-- show approve popup -->
+   <div v-if="state.isRefendPopupShown" class="bg-slate-50 rounded p-8 shadow absolute top-24 left-16">
+     <div class="text-center">
+         <h2 class="m-0 text-green-500">Are you sure to refund this transaction?</h2>
+         <p class="mt-1">This action can not be re-done.</p>
+     </div>
+     <div class="flex space-x-4 mt-4">
+         <button class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">No</button>
+         <button class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2">Yes</button>
+     </div>
+   </div>
+   <!-- /show approve popup -->
    <div class="-mt-2">
      <h1 class="uppercase text-3xl font-black my-0">REFUND</h1>
      <h1 class="font-bold text-2xl uppercase m-0 -mt-2">ORDER #{{ session.metadata.order_id }} 
@@ -30,7 +42,7 @@
 
   <div class="mt-4 flex space-x-4">
     <button @click="close" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">Close</button>
-    <button class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2 ">Refund</button>
+    <button @click="refund()" class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2 ">Refund</button>
   </div>
  </div>
 </template>
@@ -66,7 +78,8 @@ const refundMessage = ref("");
 
 const state = reactive({
         isLoaded: false,
-        status: ''
+        status: '',
+        isRefendPopupShown: false
 })
 
 const isOtherSelected = computed(() => {
@@ -94,6 +107,10 @@ function resetSelection(){
 function selectOption(index){
     resetSelection();
     refundReasons.value[index].selected = true
+}
+
+function refund(){
+  state.isRefendPopupShown = true;
 }
 
 function close(){
