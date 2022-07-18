@@ -3,7 +3,10 @@
    
    <div class="-mt-2">
      <h1 class="uppercase text-3xl font-black my-0">REFUND</h1>
-     <h1 class="font-bold text-2xl uppercase m-0 -mt-2">ORDER #{{ session.metadata.order_id }} <small class="bg-gray-100 text-xs text-gray-500 inline-block p-0.5 rounded">complete</small> </h1>
+     <h1 class="font-bold text-2xl uppercase m-0 -mt-2">ORDER #{{ session.metadata.order_id }} 
+     <small v-if="state.isloaded" class="bg-gray-100 text-xs text-gray-500 inline-block p-0.5 rounded animate-pulse h-4"></small>
+     <small v-else class="bg-gray-100 text-xs text-gray-500 inline-block p-0.5 rounded"> {{ state.status }}</small>
+     </h1>
      <p class="mt-1">I want to refund because of the following</p>
    </div>
 
