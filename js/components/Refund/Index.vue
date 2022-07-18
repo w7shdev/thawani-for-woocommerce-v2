@@ -12,6 +12,11 @@
         <Spin /> 
         <div>Sending Refund request</div>
      </div>
+     <div v-if="state.refundSuccess > -1 " class="flex flex-col justify-center items-center space-y-8">
+       <span v-if="state.refundSuccess == 0" class="text-red-500">Refund can not be created!</span> 
+       <span v-else class="text-green-500">Refund can not be created!</span> 
+    <button @click="closeRefundPopup" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">Close</button>
+     </div>
      <div v-if="state.refundSuccess == -1" class="flex space-x-4 mt-4">
          <button @click="closeRefundPopup" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">No</button>
          <button @click="sendRefund" class="block p-2 bg-green-500 border-none text-white text-sm hover:text-white hover:bg-green-600 transition rounded cursor-pointer w-1/2">Yes</button>
@@ -163,6 +168,8 @@ async function sendRefund(){
         const selected = refundReasons.value.filter(isSelected)
         message = selected[0].title;
     }
+
+    state.refundSuccess = -2; // hiding the request tempo
 
     state.isRefundSending = true; 
     const response = await request({
