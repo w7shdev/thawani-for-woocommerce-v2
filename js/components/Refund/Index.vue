@@ -26,7 +26,7 @@
        </li>
    </ul>
 
-  <textarea ref="refundMessageRef" name="message" class="placeholder:text-gray-500 border border-solid border-green-500 w-full h-32" :disabled="isOtherSelected" placeholder="Write refund reason"></textarea>
+  <textarea v-model="refundMessage" ref="refundMessageRef" name="message" class="placeholder:text-gray-500 border border-solid border-green-500 w-full h-32" :disabled="isOtherSelected" placeholder="Write refund reason"></textarea>
 
   <div class="mt-4 flex space-x-4">
     <button @click="close" class="block p-2 text-sm border border-solid border-green-500 text-green-500 hover:text-white hover:bg-green-500 transition rounded cursor-pointer w-1/2 bg-white">Close</button>
@@ -62,6 +62,7 @@ const refundReasons = ref([
 ]);
 
 const refundMessageRef = ref(null)
+const refundMessage = ref("");
 
 const state = reactive({
         isLoaded: false,
