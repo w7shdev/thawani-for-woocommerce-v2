@@ -136,7 +136,6 @@ async function sendRefund(){
             invoice: prop.session.invoice,
             message
         }, 'send_refund')
-    console.log(response)
 }
 
 function closeRefundPopup(){
