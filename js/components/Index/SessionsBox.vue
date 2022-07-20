@@ -14,7 +14,7 @@
                 <span class="text-gray-500 block"> {{ timeFromNow(prop.session.created_at) }}</span>
             </div>
             <div>
-                <span class="font-bold text-2xl text-gray-900 block">90.000</span>
+                <span class="font-bold text-2xl text-gray-900 block">{{ formatPrice(prop.session.total_amount) }}</span>
                 <span class="text-gray-500 block text-center">OMR</span>
             </div>
             <div>
@@ -96,6 +96,15 @@
         overlayStore.toggle(true)
         closePoupUp();
         window.scrollTo(0,0)
+    }
+
+   function formatPrice(price) {
+      return (price / 1000).toLocaleString("en-IN", {
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3,
+        style: "currency",
+        currency: "OMR",
+      });
     }
 
 </script>
