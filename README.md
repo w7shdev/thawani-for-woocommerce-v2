@@ -34,7 +34,7 @@
 | # | Feature / Fix     |  status |
 | ---|-------------------|---------|
 | 1 | Migrate to vue 3  | DONE |
-| 2 | Allow payment intent | pending |
+| 2 | Allow remember my last payment | pending |
 
 ---
 
