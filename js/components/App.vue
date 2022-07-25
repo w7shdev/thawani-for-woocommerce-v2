@@ -18,7 +18,7 @@
 
 <div class="flex items-center">
   <div class="flex-grow">
-        <Heading class="text-2xl text-green-600 mb-1 mt-6" title="Thawani History sessions" />
+        <Heading class="text-3xl text-[#60BE3F] mb-1 font-bold mt-6" title="Thawani History " />
         <p class="my-1">Listing your last payment history sessions. The order is from the latests to the oldest.</p>
         <p v-if="state.results > 0" class="mt-1 text-gray-500"> Total Results : {{ state.results }} </p>
         <p v-else  class="mt-1">
