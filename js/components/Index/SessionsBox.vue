@@ -8,7 +8,7 @@
                 class="no-underline hover:underline"
                 target="_blank"
                 >
-                    #{{ prop.session.client_reference_id }} <ExternalLink class="w-4 h-4" />
+                    <span class="inline-block truncate w-[120px]">#{{ prop.session.client_reference_id }}</span> <ExternalLink class="w-4 h-4" />
                 </a>
                 </span>
                 <span class="text-gray-500 block"> {{ timeFromNow(prop.session.created_at) }}</span>
@@ -18,7 +18,7 @@
                 <span class="text-gray-500 block text-center">OMR</span>
             </div>
             <div>
-                <span class="font-bold text-2xl text-gray-900 block"> {{ prop.session.metadata.customer_name}}</span>
+                <span class="font-bold text-2xl text-gray-900 block truncate"> {{ prop.session.metadata.customer_name}}</span>
                 <span class="text-gray-900 block text-center">
                     <a class="no-underline hover:underline" :href="`tel:` +  prop.session.metadata.phone ">{{ prop.session.metadata.phone }}</a>
                 </span>
