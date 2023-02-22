@@ -60,7 +60,7 @@
          <SessionWaiting />
         </div>
         <div v-else> 
-            <SessionBox v-for="session in state.sessionList" :session="session" :key="session.session_id"/>
+            <SessionBox v-for="session in state.sessionList" :session="session" :key="session.client_reference_id"/>
         </div>
         
         <div class="mt-4">
