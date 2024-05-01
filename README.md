@@ -27,14 +27,14 @@
 >   <br> <br>
 > <br>
 
-### Road map 
+### Road map
 
-**High level of what are we expecting in the future releases**
+There is currently no plan for making this plugin as same as the previous pokugin in terms of Features and also the support that is provided
+if you have the lastest version of wordpress 6.5 this plugin should be working with block editor feature __not sure__.
 
-| # | Feature / Fix     |  status |
-| ---|-------------------|---------|
-| 1 | Migrate to vue 3  | DONE |
-| 2 | Allow remember my last payment | pending |
+the plugin that works with the wordPress v6.4 and less.
+- [Thawani-For-WooCommerce](https://github.com/PhazeRoOman/thawani-for-woocommerce)
+
 
 ---
 
