@@ -12,7 +12,7 @@
     <br />
     <a href="https://github.com/w7shdev/thawani-for-woocommerce-v2/issues">Report a bug</a>
   </p>
-</p>
+    - A. upload it in the admin dashboard > plugins > install plugin.</p>
   <p align="center">
   <a href="https://github.com/PhazeRoOman/thawani-for-woocommerce/releases/latest/download/thawani-for-woocommerce.zip">Download latest release</a>
 </p>
@@ -192,12 +192,10 @@ For more information about WooCommerce Orders, Go to: [Managing Orders](https://
 
 ## Frequently Asked Questions
 
-We welcome input from the community please let us know how we can improve this plugin. Do not hesitate to ask us questions on the [issues](https://github.com/PhazeRoOman/thawani_gw/issues) page.
+- Q. How can I use this plugin?
+    - A. upload it in the admin dashboard > plugins > install plugin.
+
 
 ## License
 
 Distributed under the MIT License. See [License] (https://github.com/PhazeRoOman/thawani-for-woocommerce/blob/changes/LICENSE.md) for more information.
-
-## Maintained By:
-
-- [PhazeRo](https://phaze.ro/)
