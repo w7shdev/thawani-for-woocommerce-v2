@@ -10,10 +10,13 @@
         }
     ],
     "minimum-stability": "beta",
-    "require": {},
     "autoload": {
         "psr-4": {
             "Thawani\\": "src"
         }
+    },
+    "require-dev": {
+        "php-stubs/wordpress-stubs": "^6.5",
+        "php-stubs/woocommerce-stubs": "^8.8"
     }
 }
