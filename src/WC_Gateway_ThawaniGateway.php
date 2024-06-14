@@ -73,7 +73,7 @@ class WC_Gateway_ThawaniGateway extends \WC_Payment_Gateway
         $this->environment = $this->get_option('environment');
         $this->order_status = $this->get_option('status');
         self::$log_enabled = ($this->get_option('debug') == "yes") ? true: false;
-        // disabled for now -- may updated later to enable this feature 
+        // disabled for now -- may updated later to enable this feature
         // $this->is_save_cards = $this->get_option('save_cards');
         $this->api = new RestAPI($this->secret_key, $this->publishable_key, $this->environment);
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
@@ -266,7 +266,7 @@ class WC_Gateway_ThawaniGateway extends \WC_Payment_Gateway
                 'description' => __('publishable key provided by Thawani', 'thawani'),
                 'desc_tip' => true,
             ),
-            // removed since version 1.1.0 and may later be included 
+            // removed since version 1.1.0 and may later be included
             // 'save_cards' => array(
             //     'title' => __('Save Customer cards', 'thawani'),
             //     'label' => __('Enable Thawani payment to save the customer cards', 'thawani'),
@@ -297,22 +297,22 @@ class WC_Gateway_ThawaniGateway extends \WC_Payment_Gateway
                 'type'        => 'checkbox',
                 'label'       => __('Enable logging', 'thawani'),
                 'default'     => 'no',
-                'description' => sprintf(__('Log Thawani events', 'thawani'), wc_get_log_file_path('thawani'))
+                'description' => __('Log Thawani events', 'thawani'), wc_get_log_file_path('thawani')
             ),
         ];
     }
 
     /**
-     * get the product price with the tax 
-     * 
+     * get the product price with the tax
+     *
      * @param WC_ORDER  $order
-     * 
+     *
      * @return float tax percentage
      */
     protected function get_tax_precent($order)
     {
         $get_tax = 0;
-        //need the first array 
+        //need the first array
         foreach ($order->get_items('tax') as $item) {
             $get_tax = $item->get_data();
             break;
@@ -333,7 +333,7 @@ class WC_Gateway_ThawaniGateway extends \WC_Payment_Gateway
 
         $order_items = wc_get_order($order_id);
         $items = $order_items->get_data()['line_items'];
-        // get the tax set of the order 
+        // get the tax set of the order
         $tax  = $this->get_tax_precent($order_items);
 
         $products = [];
@@ -446,7 +446,7 @@ class WC_Gateway_ThawaniGateway extends \WC_Payment_Gateway
         }
         $this->logger('📝Session creation Failed');
         $this->logger('📝Response log');
-        foreach($response as $key => $value) { 
+        foreach($response as $key => $value) {
             $this->logger("📝Response {$key} : "  . $value);
         }
         $this->logger('📝Success URL: ' . $this->api->get_redirect_uri($response->data->session_id));
@@ -523,9 +523,9 @@ class WC_Gateway_ThawaniGateway extends \WC_Payment_Gateway
     /**
      * Log a message in woocommerce plugin
      * Message can be found in woocommerce -> status -> log
-     * 
+     *
      * @param string $message
-     * 
+     *
      * @return void
      */
     public function logger($message)
