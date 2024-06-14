@@ -1,24 +1,41 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'name' => 'alrisi/thawani',
+        'pretty_version' => 'dev-next',
+        'version' => 'dev-next',
+        'reference' => 'f6c641605b736284362dafb48fcfea4984039771',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
     ),
-    'reference' => NULL,
-    'name' => 'alrisi/thawani',
-  ),
-  'versions' => 
-  array (
-    'alrisi/thawani' => 
-    array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => NULL,
+    'versions' => array(
+        'alrisi/thawani' => array(
+            'pretty_version' => 'dev-next',
+            'version' => 'dev-next',
+            'reference' => 'f6c641605b736284362dafb48fcfea4984039771',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php-stubs/woocommerce-stubs' => array(
+            'pretty_version' => 'v8.9.1',
+            'version' => '8.9.1.0',
+            'reference' => '2f5be3f363ff3d02b4e29404c7895d9d15fd3e73',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-stubs/woocommerce-stubs',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
+        'php-stubs/wordpress-stubs' => array(
+            'pretty_version' => 'v6.5.3',
+            'version' => '6.5.3.0',
+            'reference' => 'e611a83292d02055a25f83291a98fadd0c21e092',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-stubs/wordpress-stubs',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
     ),
-  ),
 );
