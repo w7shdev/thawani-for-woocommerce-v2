@@ -3,7 +3,7 @@
         'name' => 'alrisi/thawani',
         'pretty_version' => 'dev-next',
         'version' => 'dev-next',
-        'reference' => 'f6c641605b736284362dafb48fcfea4984039771',
+        'reference' => '76df73c85b479849f00efb33177ec3a4b4c2547e',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'alrisi/thawani' => array(
             'pretty_version' => 'dev-next',
             'version' => 'dev-next',
-            'reference' => 'f6c641605b736284362dafb48fcfea4984039771',
+            'reference' => '76df73c85b479849f00efb33177ec3a4b4c2547e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

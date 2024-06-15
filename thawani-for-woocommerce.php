@@ -19,6 +19,7 @@ License URL: https://mit-license.org/
 require_once plugin_dir_path(__FILE__) . '/vendor/autoload.php';
 
 use \Thawani\WC_Gateway_ThawaniGateway;
+use \Thawani\ThawaniCheckoutBlockSupport;
 use Thawani\RestAPI;
 
 if (!defined('ABSPATH'))
@@ -53,4 +54,37 @@ add_action('init', 'thawani_gw_load_textDomain');
 function thawani_gw_load_textDomain()
 {
     load_plugin_textdomain('thawani', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+
+add_action( 'before_woocommerce_init', 'thawani_cart_checkout_blocks_compatibility' );
+
+function thawani_cart_checkout_blocks_compatibility() {
+
+    if( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+				'cart_checkout_blocks',
+				__FILE__,
+				false // true (compatible, default) or false (not compatible)
+			);
+    }
+
+}
+
+add_action( 'woocommerce_blocks_loaded', 'thawani_gateway_block_support' );
+function thawani_gateway_block_support() {
+
+	// if( ! class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
+	// 	return;
+	// }
+
+	// here we're including our "gateway block support class"
+
+	// registering the PHP class we have just included
+	add_action(
+		'woocommerce_blocks_payment_method_type_registration',
+		function( Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry ) {
+			$payment_method_registry->register( new ThawaniCheckoutBlockSupport());
+		}
+	);
+
 }

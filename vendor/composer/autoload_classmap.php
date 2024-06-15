@@ -7,4 +7,14 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Thawani\\AdminDashboard' => $baseDir . '/src/AdminDashboard.php',
+    'Thawani\\Endpoint\\Customer' => $baseDir . '/src/Endpoint/Customer.php',
+    'Thawani\\Endpoint\\Payment' => $baseDir . '/src/Endpoint/Payment.php',
+    'Thawani\\Endpoint\\PaymentMethods' => $baseDir . '/src/Endpoint/PaymentMethods.php',
+    'Thawani\\Endpoint\\Refund' => $baseDir . '/src/Endpoint/Refund.php',
+    'Thawani\\Endpoint\\Session' => $baseDir . '/src/Endpoint/Session.php',
+    'Thawani\\RestAPI' => $baseDir . '/src/RestAPI.php',
+    'Thawani\\ThawaniAjax' => $baseDir . '/src/ThawaniAjax.php',
+    'Thawani\\ThawaniCheckoutBlockSupport' => $baseDir . '/src/ThawaniCheckoutBlockSupport.php',
+    'Thawani\\WC_Gateway_ThawaniGateway' => $baseDir . '/src/WC_Gateway_ThawaniGateway.php',
 );
